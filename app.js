@@ -8,15 +8,10 @@ let playerDisplay = document.getElementById("insertDisplay");
 let playerDB = [];
 
 /*
-
   폼 입력시 테이블에 등록하기
-
   (1) 이름 , 나이 , 팀 , 나라 를 사용자로부터 입력받기
-  
   (2) playerDB에 저장됩니다.
-
   (3) 선수 정보가 테이블에 등록됩니다. 
-
  */
 
 // 폼 입력시 등록하는 이벤트
@@ -87,8 +82,6 @@ function editButton(id) {
     }
     return item;
   });
-
-  console.log("playerDB:", playerDB);
 
   playerDisplay.innerHTML = "";
 
