@@ -16,3 +16,10 @@
 
 ![image](https://github.com/Andante23/vanilajs/assets/98266983/af447303-b622-4107-bbe7-21f2f9a3a24b)
 
+---
+
+# 주요기능 
+
+ - 선수 정보 등록
+ - 선수 정보 삭제
+ - 선수 정보 수정
