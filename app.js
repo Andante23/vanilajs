@@ -74,3 +74,35 @@ function deleteButton(id) {
    `;
   });
 }
+
+// 선수 정보를 수정하는 함수
+function editButton(id) {
+  // id와 일치하는 데이터만 수정
+  playerDB = playerDB.map((item) => {
+    if (item.id === id) {
+      item.name = window.prompt("이름을 입력해주세요");
+      item.age = Number(window.prompt("나이를 입력해주세요"));
+      item.team = window.prompt("팀을 입력해주세요");
+      item.country = window.prompt("국가를 입력해주세요");
+    }
+    return item;
+  });
+
+  console.log("playerDB:", playerDB);
+
+  playerDisplay.innerHTML = "";
+
+  playerDB.forEach((player) => {
+    playerDisplay.innerHTML += `
+   <figure>
+    <h1>${player.name}</h1>
+    <span>${player.age}</span>
+    <span>${player.team}</span>
+    <span>${player.country}</span>
+    <button onclick="deleteButton('${player.id}')">delete</button>
+    <button onclick="editButton('${player.id})">edit</button>
+   </figure>
+
+   `;
+  });
+}
