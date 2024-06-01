@@ -4,21 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="app.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
   </head>
   <body>
     <!-- 홈페이지 타이틀 -->
-    <header id="home_title">
-      <h1>축구선수 등록하기</h1>
+    <header id="home_title" class="home__header">
+      <h1 class="home__header__title">축구선수 등록하기</h1>
     </header>
 
     <!-- 홈페이지 내비게이션 -->
-    <nav id="home_navigation">
-      <form id="userInputForm">
+    <nav id="home_navigation" class="home__navigation__bar">
+      <form id="userInputForm" class="home__navigation__form">
         <input
           type="text"
           id="userName"
-          class="user-name"
+          class="user__input name"
           placeholder="이름 입력"
           required
         />
@@ -26,7 +27,7 @@
         <input
           type="number"
           id="userAge"
-          class="user-age"
+          class="user__input age"
           placeholder="나이입력"
         required
           />
@@ -34,7 +35,7 @@
         <input
           type="text"
           id="userTeam"
-          class="user-team"
+          class="user__input team"
           placeholder="팀입력"
          required
           />
@@ -42,18 +43,17 @@
         <input
           type="text"
           id="userContry"
-          class="user-contry"
+          class="user__input contry"
           placeholder="나라입력"
          required
           />
-        <button id="submitButton">등록</button>
+        <button id="submitButton" class="home__navigation__form__submit__button">등록</button>
       </form>
     </nav>
 
     <!-- 선수 등록 바 -->
-    <main id="home_table_bar">
-      <section id="insertDisplay" class="insert-display">
-        
+    <main id="homeTableBar" class="home__table__container">
+      <section id="insertDisplay" class="insert__display">  
       </section>
   </body>
 </html>
