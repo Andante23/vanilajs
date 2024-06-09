@@ -4,15 +4,7 @@ let userTeam = document.getElementById("userTeam");
 let userCountry = document.getElementById("userContry");
 let userInputForm = document.getElementById("userInputForm");
 let playerDisplay = document.getElementById("insertDisplay");
-
 let playerDB = [];
-
-/*
-  폼 입력시 테이블에 등록하기
-  (1) 이름 , 나이 , 팀 , 나라 를 사용자로부터 입력받기
-  (2) playerDB에 저장됩니다.
-  (3) 선수 정보가 테이블에 등록됩니다. 
- */
 
 // 폼 입력시 등록하는 이벤트
 userInputForm.addEventListener("submit", function (event) {
@@ -28,8 +20,12 @@ userInputForm.addEventListener("submit", function (event) {
     country: userCountry.value,
   };
 
-  // 선수정보 저장하는 용도로 쓰임
   playerDB.push(playerInfo);
+
+  // localStorage에 선수정보저장
+  // playerInfo 그대로 저장시에 이전 데이터가 덮어씌어짐
+  // 그래서 배열 playerDB로 저장
+  localStorage.setItem("player", JSON.stringify(playerDB));
 
   // UI에 보여지는 것은 하나만
   playerDisplay.innerHTML += `
@@ -50,12 +46,19 @@ userInputForm.addEventListener("submit", function (event) {
 
 // 선수 정보를 삭제하는 함수
 function deleteButton(id) {
-  // => 선수 정보가 담겨있는 배열 playerDB값을 삭제하고자 하는 아이디값이 없는 배열로 변경
-  playerDB = playerDB.filter((item) => item.id !== id);
+  // i. 로컬 스토리지에서 선수 데이터 가져오기
+  let playerDatas = JSON.parse(localStorage.getItem("player"));
 
+  /* 
+     ii. playerDatas 에서  삭제된 데이터 id 제외한 배열 반환 
+         localStorage 내부 갱신 
+  */
+  playerDatas = playerDatas.filter((player) => player.id !== id);
+  localStorage.setItem("player", JSON.stringify(playerDatas));
+
+  // iii. 등록한 선수 정보 보여주는 부분 리셋 후 업로드
   playerDisplay.innerHTML = "";
-
-  playerDB.forEach((player) => {
+  playerDatas.forEach((player) => {
     playerDisplay.innerHTML += `
    <figure>
     <h1>${player.name}</h1>
@@ -72,8 +75,11 @@ function deleteButton(id) {
 
 // 선수 정보를 수정하는 함수
 function editButton(id) {
-  // id와 일치하는 데이터만 수정
-  playerDB = playerDB.map((item) => {
+  // i 로컬스토리지에서 player관련 데이터를 가져옵니다.
+  let playerDatas = JSON.parse(localStorage.getItem("player"));
+
+  // ii 수정이 반영된 배열을 만듭니다.
+  playerDatas = playerDatas.map((item) => {
     if (item.id === id) {
       item.name = window.prompt("이름을 입력해주세요");
       item.age = Number(window.prompt("나이를 입력해주세요"));
@@ -83,9 +89,9 @@ function editButton(id) {
     return item;
   });
 
+  // iii. 등록한 선수 정보 보여주는 부분 리셋 후 업로드
   playerDisplay.innerHTML = "";
-
-  playerDB.forEach((player) => {
+  playerDatas.forEach((player) => {
     playerDisplay.innerHTML += `
    <figure>
     <h1>${player.name}</h1>
@@ -99,3 +105,23 @@ function editButton(id) {
    `;
   });
 }
+
+// 로컬 스토리지에 저장된 선수 데이터를 보여주기
+
+// i 로컬 스토리지에서 선수관련된 데이터를 가져옵니다.
+let storageData = JSON.parse(localStorage.getItem("player"));
+
+// ii 선수 정보를 하나씩 보여줍니다.
+storageData.forEach((player) => {
+  playerDisplay.innerHTML += `
+  <figure>
+   <h1>${player.name}</h1>
+   <span>${player.age}</span>
+   <span>${player.team}</span>
+   <span>${player.country}</span>
+   <button onclick="deleteButton('${player.id}')">delete</button>
+   <button onclick="editButton('${player.id})">edit</button>
+  </figure>
+
+  `;
+});
