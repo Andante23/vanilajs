@@ -33,3 +33,4 @@
 --   | --   | --
 선수등록 , 삭제 | 2024.06.01 | https://andante20001104.tistory.com/155
 선수업데이트 | 2024.06.01  | https://andante20001104.tistory.com/156
+로컬스토리지 추가 | 2024.06.09 | https://andante20001104.tistory.com/167
