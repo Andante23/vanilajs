@@ -1,5 +1,5 @@
 let userName = document.getElementById("userName");
-let userAge = document.getElementById("userAge");
+
 let userTeam = document.getElementById("userTeam");
 let userCountry = document.getElementById("userContry");
 let userInputForm = document.getElementById("userInputForm");
@@ -13,7 +13,6 @@ userInputForm.addEventListener("submit", function (event) {
   let playerInfo = {
     id: crypto.randomUUID(),
     name: userName.value,
-    age: userAge.value,
     team: userTeam.value,
     country: userCountry.value,
   };
@@ -23,7 +22,6 @@ userInputForm.addEventListener("submit", function (event) {
   playerDisplay.innerHTML += `
  <figure>
   <h1>${playerInfo.name}</h1>
-  <span>${playerInfo.age}</span>
   <span>${playerInfo.team}</span>
   <span>${playerInfo.country}</span>
   <button onclick=deleteButton("${playerInfo.id}")>delete</button>
@@ -35,6 +33,17 @@ userInputForm.addEventListener("submit", function (event) {
   localStorage.setItem("player", JSON.stringify(playerDB));
 
   userInputForm.reset();
+
+  // 3개의 input중 하나라도 공백이 있다면
+  if (
+    playerInfo.country.trim() == "" ||
+    playerInfo.name.trim() == "" ||
+    playerInfo.team.trim() == ""
+  ) {
+    window.alert("잘못된 입력이에요");
+
+    return;
+  }
 });
 
 // 축구선수 정보를 삭제하는 함수
@@ -49,7 +58,6 @@ function deleteButton(id) {
     playerDisplay.innerHTML += `
        <figure>
         <h1>${player.name}</h1>
-        <span>${player.age}</span>
         <span>${player.team}</span>
         <span>${player.country}</span>
         <button onclick=deleteButton("${player.id}")>delete</button>
@@ -82,7 +90,7 @@ function editButton(id) {
     playerDisplay.innerHTML += `
        <figure>
         <h1>${player.name}</h1>
-        <span>${player.age}</span>
+        
         <span>${player.team}</span>
         <span>${player.country}</span>
         <button onclick=deleteButton("${player.id}")>delete</button>
@@ -101,7 +109,7 @@ if (storageData.length !== 0) {
     playerDisplay.innerHTML += `
   <figure>
    <h1>${player.name}</h1>
-   <span>${player.age}</span>
+   
    <span>${player.team}</span>
    <span>${player.country}</span>
    <button onclick=deleteButton("${player.id}")>delete</button>
@@ -110,4 +118,9 @@ if (storageData.length !== 0) {
 
   `;
   });
+} else if (storageData.length === 0) {
+  playerDisplay.innerHTML += `<div>
+    등록된 데이터가 없습니다.
+  </div>
+  `;
 }
